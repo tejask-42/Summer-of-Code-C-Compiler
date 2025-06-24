@@ -1,0 +1,13 @@
+int main() {
+    int x = 42;
+    // This is a comment
+    if (x > 0) {
+        output(x);
+    } else {
+        input(x);
+    }
+    /* Block
+       comment */
+    x = x + 1;
+    return x;
+}
