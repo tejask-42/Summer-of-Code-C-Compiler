@@ -1,97 +1,150 @@
-# C-- Lexer Project
+# C-- Compiler Project
 
-This project implements a lexer for the C-- programming language. The lexer is responsible for converting raw source code into a sequence of tokens that can be further processed by a compiler or interpreter.
+This repository contains a modular C-- compiler, supporting all fundamental compilation stages:  
+**Lexical analysis, parsing, semantic analysis, IR generation, code optimization, and code generation (x86-64 assembly output).**  
 
-## Overview
+---
 
-The C-- lexer supports the following token types:
+## Inspiration
 
-- **Keywords**: `int`, `void`, `if`, `else`, `while`, `return`, `input`, `output`
-- **Identifiers**: Variable names and function names
-- **Literals**: Numeric values
-- **Operators**: Arithmetic and comparison operators
-- **Delimiters**: Braces, parentheses, semicolons, and commas
+This project was inspired by [SoC-Now-You-C-Me](https://github.com/adityasanapala/SoC-Now-You-C-Me), the official repository for "Now You C Me," a Summer of Code 2025 project by my mentor Aditya Sanapala.  
+Check out their work for foundational compiler-building learning material and weekly task progression!
 
-## Project Structure
+---
+
+## Features
+
+- **Lexical Analysis:**  
+  Tokenizes source into keywords, identifiers, literals, operators, and delimiters.
+- **Parsing:**  
+  Builds an Abstract Syntax Tree (AST) from C-- source, supporting functions, declarations, expressions, and control flow.
+- **Semantic Analysis:**  
+  Checks for undeclared/void variables, incorrect uses, and type errors.
+- **Intermediate Representation (IR) & Optimization:**  
+  Generates IR for further passes, applies optimizations (constant folding, dead code, etc.).
+- **Assembly Code Generation:**  
+  Generates x86-64 assembly output.
+- **Extensive Modular Unit Tests:**  
+  Comprehensive GoogleTest-based tests for all modules, each with their own target for focused, green builds.
+---
+
+## Project Layout
 
 ```
-c-minus-compiler
-├── src
-│   ├── lexer.cpp      # Implementation of the lexer and token classes
-│   ├── lexer.h        # Header file defining token types and classes
-│   └── main.cpp       # Entry point for the application
-├── tests
-│   └── lexer_tests.cpp # Unit tests for the lexer using Google Test
-├── Makefile           # Build instructions for the project
-└── README.md          # Project documentation
+
+c-minus-compiler/
+├── src/
+│   ├── lexer.cpp, lexer.h
+│   ├── parser.cpp, parser.h
+│   ├── ast.h              \# AST node definitions and Visitor
+│   ├── semantic-analyzer.cpp, .h
+│   ├── ir-generator.cpp, .h
+│   ├── ir-optimizer.cpp, .h
+│   ├── assembly-generator.cpp, .h
+│   ├── advanced-optimizer.cpp, .h
+│   └── cmmc.cpp           \# Command line driver
+├── tests/
+│   ├── lexer_tests.cpp
+│   ├── parser_tests.cpp
+│   ├── semantic_tests.cpp
+│   ├── ir_tests.cpp
+│   ├── assembly_tests.cpp
+│   ├── ast_tests.cpp
+│   └── test_main.cpp       \# (optional, not run by default)
+├── grammar.bnf            \# Full C-- grammar specification
+├── Makefile
+└── README.md
+
 ```
+
+---
 
 ## C-- Grammar
 
-The formal grammar for C-- is provided in [grammar.bnf](grammar.bnf) using BNF notation.  
-Use this file as a reference for language structure and parser development.
+See [grammar.bnf](grammar.bnf) for the formal grammar in BNF notation used by the parser and referenced when extending language features.
 
-## Building the Project
+---
 
-To build the project, navigate to the project directory and run:
+## Building the Compiler and Tests
 
-```
-make
+Compile everything with:
 ```
 
-This will compile the source files and create an executable named `c_minus_compiler`.
-
-## Running Tests
-
-To run the unit tests, use the following command:
+make all
 
 ```
+
+**Build or run individual tests (examples):**
+```
+
+make lexer-tests
+make parser-tests
+make semantic-tests
+make ir-tests
+make assembly-tests
+make ast-tests
+
+```
+
+---
+
+## Running the Compiler
+
+Compile your C-- source file (e.g., `hello.cmm`):
+```
+
+./bin/cmmc hello.cmm
+
+```
+You will see passes for lexing, parsing, semantic analysis, etc., and output (stdout or files) per chosen options.
+
+---
+
+## Running the Tests
+
+**Run all GoogleTest module tests (default targets):**
+```
+
 make test
+
+```
+This will sequentially run all individual test binaries, and all output will show passing (green) if only passing tests are enabled.
+
+Run a specific test target:
 ```
 
-This will execute the tests defined in `tests/lexer_tests.cpp` using the Google Test framework.
+make parser-tests
+make semantic-tests
+
+# etc.
+
+```
+
+---
 
 ## Cleaning Up
 
-To remove the compiled object files and the executable, run:
-
 ```
+
 make clean
-```
-
-## Usage
-
-After building the project, you can run the lexer on a source file by providing the file name as an argument:
 
 ```
-./c_minus_compiler <source-file>
-```
 
-This will tokenize the input source file and print the tokens along with their line and column positions.
+Removes all compiled code, objects, binaries, and test artifacts.
 
-## Example
+---
 
-Given a source file containing:
+## Extending/Contributing
 
-```
-int x = 42;
-```
+- New tokens? Extend `lexer.h/cpp`.
+- New statements or nodes? Update `ast.h`, parser, and semantic analysis.
+- Want to target another architecture or add backend features? Extend codegen modules.
+- All new features must be accompanied by new targeted unit tests in the `tests/` folder.
 
-The lexer will output:
+---
 
-```
-Token: KEYWORD(int) at line 1, col 1
-Token: IDENTIFIER(main) at line 1, col 5
-Token: LPAREN(() at line 1, col 9
-Token: KEYWORD(void) at line 1, col 10
-Token: RPAREN()) at line 1, col 14
-Token: LBRACE({) at line 1, col 16
-Token: KEYWORD(int) at line 2, col 5
-Token: IDENTIFIER(x) at line 2, col 9
-Token: EQUAL(=) at line 2, col 11
-Token: NUMBER(42) at line 2, col 13
-Token: SEMICOLON(;) at line 2, col 15
-Token: RBRACE(}) at line 3, col 1
-``` 
+## Questions or issues?
 
-This indicates the line and column of each token along with its type.
+Open a GitHub issue or pull request. Contributions are welcome!
+
+---
