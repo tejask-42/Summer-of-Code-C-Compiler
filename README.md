@@ -8,7 +8,7 @@ This repository contains a modular C-- compiler, supporting all fundamental comp
 ## Inspiration
 
 This project was inspired by [SoC-Now-You-C-Me](https://github.com/adityasanapala/SoC-Now-You-C-Me), the official repository for "Now You C Me," a Summer of Code 2025 project by my mentor Aditya Sanapala.  
-Check out their work for foundational compiler-building learning material and weekly task progression!
+Check out his work for foundational compiler-building learning material and weekly task progression!
 
 ---
 
@@ -38,37 +38,6 @@ cd Summer-of-Code-C-Compiler
   Generates x86-64 assembly output.
 - **Extensive Modular Unit Tests:**  
   Comprehensive GoogleTest-based tests for all modules, each with their own target for focused, green builds.
----
-
-## Project Layout
-
-```
-
-c-minus-compiler/
-├── src/
-│   ├── lexer.cpp, lexer.h
-│   ├── parser.cpp, parser.h
-│   ├── ast.h              \# AST node definitions and Visitor
-│   ├── semantic-analyzer.cpp, .h
-│   ├── ir-generator.cpp, .h
-│   ├── ir-optimizer.cpp, .h
-│   ├── assembly-generator.cpp, .h
-│   ├── advanced-optimizer.cpp, .h
-│   └── cmmc.cpp           \# Command line driver
-├── tests/
-│   ├── lexer_tests.cpp
-│   ├── parser_tests.cpp
-│   ├── semantic_tests.cpp
-│   ├── ir_tests.cpp
-│   ├── assembly_tests.cpp
-│   ├── ast_tests.cpp
-│   └── test_main.cpp       \# (optional, not run by default)
-├── grammar.bnf            \# Full C-- grammar specification
-├── Makefile
-└── README.md
-
-```
-
 ---
 
 ## C-- Grammar
