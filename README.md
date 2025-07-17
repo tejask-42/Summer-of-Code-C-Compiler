@@ -12,6 +12,18 @@ Check out their work for foundational compiler-building learning material and we
 
 ---
 
+## Getting Started
+
+Clone this repository:
+```
+
+git clone https://github.com/tejask-42/Summer-of-Code-C-Compiler.git
+cd Summer-of-Code-C-Compiler
+
+```
+
+---
+
 ## Features
 
 - **Lexical Analysis:**  
